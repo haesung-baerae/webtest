@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>배해성 포트폴리오</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/api/placeholder/1600/800');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+        }
+        
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+        }
+        
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+        }
+        
+        nav ul li {
+            padding: 20px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: #ff9800;
+        }
+        
+        .profile-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            border: 5px solid #ff9800;
+            object-fit: cover;
+            object-position: center 30%;
+        }
+        
+        .hero-text h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .hero-text h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+        
+        .hero-text p {
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: #ff9800;
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 1px;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #e68a00;
+        }
+        
+        .section {
+            padding: 80px 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            display: inline-block;
+            position: relative;
+        }
+        
+        .section-title h2::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: #ff9800;
+        }
+        
+        #about {
+            background-color: white;
+        }
+        
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        .about-text {
+            flex: 1;
+            padding: 0 30px;
+            min-width: 300px;
+        }
+        
+        .about-img {
+            flex: 1;
+            min-width: 300px;
+            padding: 0 30px;
+        }
+        
+        .about-img img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        
+        .services-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .service-item {
+            flex: 0 0 calc(33.333% - 40px);
+            margin: 20px;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            min-width: 300px;
+        }
+        
+        .service-item:hover {
+            transform: translateY(-10px);
+        }
+        
+        .service-icon {
+            font-size: 3rem;
+            color: #ff9800;
+            margin-bottom: 20px;
+        }
+        
+        .portfolio-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .portfolio-item {
+            flex: 0 0 calc(33.333% - 40px);
+            margin: 20px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            min-width: 300px;
+        }
+        
+        .portfolio-img {
+            width: 100%;
+            transition: transform 0.3s;
+        }
+        
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 152, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+        
+        .portfolio-item:hover .portfolio-img {
+            transform: scale(1.1);
+        }
+        
+        .portfolio-overlay h3 {
+            color: white;
+            margin-bottom: 10px;
+        }
+        
+        .portfolio-overlay .btn {
+            background-color: white;
+            color: #ff9800;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 50px;
+        }
+        
+        .contact-item {
+            flex: 0 0 calc(33.333% - 40px);
+            margin: 20px;
+            text-align: center;
+            min-width: 300px;
+        }
+        
+        .contact-icon {
+            font-size: 2.5rem;
+            color: #ff9800;
+            margin-bottom: 15px;
+        }
+        
+        .contact-form {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #f0f0f0;
+        }
+        
+        textarea.form-control {
+            height: 150px;
+            resize: none;
+        }
+        
+        footer {
+            background-color: #222;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+        }
+        
+        .social-links {
+            margin-bottom: 20px;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            margin: 0 10px;
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: #ff9800;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-text h2 {
+                font-size: 1.5rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav ul li {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="#home">홈</a></li>
+            <li><a href="#about">소개</a></li>
+            <li><a href="#services">서비스</a></li>
+            <li><a href="#portfolio">포트폴리오</a></li>
+            <li><a href="#contact">연락처</a></li>
+        </ul>
+    </nav>
+
+    <!-- Header / Hero Section -->
+    <header id="home">
+        <img src="https://github.com/haesung-baerae/webtest/blob/main/ChatGPT%20Image%202025%EB%85%84%203%EC%9B%94%2028%EC%9D%BC%20%EC%98%A4%ED%9B%84%2001_56_58.png?raw=true" alt="배해성 프로필 이미지" class="profile-img">
+
+
+        <div class="hero-text">
+            <h1>배해성</h1>
+            <h2>AI 교육 전문가 & 개발자</h2>
+            <p>10년간의 개발 경험을 바탕으로, 
+                아이들에게 AI와 코딩을 쉽고 재미있게 알려주는 교육자입니다. 
+                기술을 통해 사람들에게 긍정적인 영향을 주는 일을 좋아합니다.</p>
+            <a href="#contact" class="btn">연락하기</a>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>소개</h2>
+            </div>
+            <div class="about-content">
+                <div class="about-img">
+                    <img src="https://i.imgur.com/xfGzHb6.png" alt="배해성 이미지">
+                </div>
+                <div class="about-text">
+                    <h3>안녕하세요, 저는 배해성입니다</h3>
+                    <p>10년간의 개발 경험을 바탕으로, 아이들에게 AI와 코딩을 쉽고 재미있게 알려주는 교육자입니다. 기술을 통해 사람들에게 긍정적인 영향을 주는 일을 좋아합니다.</p>
+                    <p>저는 복잡한 기술 개념을 쉽게 설명하고, 학생들이 디지털 세계에서 창의적으로 문제를 해결할 수 있도록, 실용적인 프로젝트 중심의 교육을 제공합니다.</p>
+                    <p>아이들이 미래 기술에 대한 두려움 없이 호기심과 열정을 가지고 접근할 수 있도록 돕는 것이 저의 사명입니다. 함께 배우고 성장하는 과정에서 아이들의 잠재력을 최대한 발휘할 수 있도록 지원합니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>서비스</h2>
+            </div>
+            <div class="services-container">
+                <div class="service-item">
+                    <div class="service-icon">🤖</div>
+                    <h3>AI 기초 교육</h3>
+                    <p>아이들이 인공지능의 기본 개념을 이해하고 일상생활에서의 AI 응용 사례를 배울 수 있는 교육 프로그램을 제공합니다.</p>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon">💻</div>
+                    <h3>어린이 코딩 교실</h3>
+                    <p>블록 코딩부터 텍스트 기반 프로그래밍까지, 연령별로 최적화된 커리큘럼으로 아이들의 코딩 능력을 키웁니다.</p>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon">🧩</div>
+                    <h3>프로젝트 기반 학습</h3>
+                    <p>실제 문제를 해결하는 프로젝트를 통해 기술 이해도를 높이고 창의적 사고와 협업 능력을 개발합니다.</p>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon">👨‍👩‍👧‍👦</div>
+                    <h3>학부모 워크샵</h3>
+                    <p>디지털 시대에 자녀를 교육하는 방법과 가정에서 기술 활용을 지원하는 방법에 대한 워크샵을 진행합니다.</p>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon">📚</div>
+                    <h3>교육 자료 개발</h3>
+                    <p>아이들의 눈높이에 맞는 교육 자료와 교구를 개발하여 학습 효과를 극대화합니다.</p>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon">🏫</div>
+                    <h3>교사 연수 프로그램</h3>
+                    <p>교사들이 최신 기술 트렌드를, 효과적으로 수업에 통합할 수 있는 방법을 알려드립니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>포트폴리오</h2>
+            </div>
+            <div class="portfolio-container">
+                <div class="portfolio-item">
+                    <img src="/api/placeholder/400/300" alt="Portfolio 1" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>AI 교육용 앱 개발</h3>
+                        <a href="#" class="btn">상세보기</a>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="/api/placeholder/400/300" alt="Portfolio 2" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>코딩 교육 워크북</h3>
+                        <a href="#" class="btn">상세보기</a>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="/api/placeholder/400/300" alt="Portfolio 3" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>교육 웹사이트 제작</h3>
+                        <a href="#" class="btn">상세보기</a>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="/api/placeholder/400/300" alt="Portfolio 4" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>어린이 코딩 캠프</h3>
+                        <a href="#" class="btn">상세보기</a>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="/api/placeholder/400/300" alt="Portfolio 5" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>교사 연수 프로그램</h3>
+                        <a href="#" class="btn">상세보기</a>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="/api/placeholder/400/300" alt="Portfolio 6" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>AI 윤리 교육 자료</h3>
+                        <a href="#" class="btn">상세보기</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>연락처</h2>
+            </div>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">📧</div>
+                    <h3>이메일</h3>
+                    <p>haesung@example.com</p>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📱</div>
+                    <h3>전화번호</h3>
+                    <p>010-1234-5678</p>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📍</div>
+                    <h3>주소</h3>
+                    <p>서울특별시 강남구 테헤란로 123</p>
+                </div>
+            </div>
+            <div class="contact-form">
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="이름" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="form-control" placeholder="이메일" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="제목" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" placeholder="메시지" required></textarea>
+                    </div>
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn">메시지 보내기</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="social-links">
+            <a href="#">📘</a>
+            <a href="#">📱</a>
+            <a href="#">📷</a>
+            <a href="#">📹</a>
+        </div>
+        <p>&copy; 2025 배해성. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>
